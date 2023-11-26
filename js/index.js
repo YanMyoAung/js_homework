@@ -7,7 +7,6 @@ const UFL = 'Univerisity Of Foreign Language'; //above 400
 const IN = 'Institute Of Nursing'; // above 350
 const YU = 'Yandanabon Univerisity'; // above 239
 
-
 let myanmar_score = prompt("Enter Myanmar Score");
 let english_score = prompt("Enter English Score");
 let math_score = prompt("Enter Math Score");
