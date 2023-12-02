@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .alert {
+            background-color: rgb(209, 90, 90);
+            color: white;
+            padding: 15px 20px;
+            border-left: solid 10px rgb(219, 24, 24);
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="hello" class="ok soy ">
+        <strong>Hay Bro!</strong>
+        <p>How Are You?</p>
+    </div>
+    <input type="button" value="Clickme" id="clk">
+    <script>
+        document.getElementById('clk').onclick = function () {
+            let div = document.getElementById('hello');
+            div.querySelector('strong').innerHTML = document.documentElement.clientWidth;
+            let div_clone = div.cloneNode(true);
+            div_clone.querySelector('strong').innerHTML = document.documentElement.clientHeight;
+            div.append(div_clone);
+            div_clone.classList.add('alert');
+        };
+    </script>
+</body>
+
+</html>
