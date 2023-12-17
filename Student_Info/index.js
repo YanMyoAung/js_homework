@@ -72,21 +72,21 @@ for (let i = 0; i < register_count; i++) {
         student_gender = prompt("Enter Student Gender");
     }
 
-    let age = prompt("Enter Student Age");
-    while (isNaN(+age) || validateBlankValue(age) || !validateAge(age, 15, 40)) {
-        if (isNaN(+age)) {
+    let student_age = prompt("Enter Student Age");
+    while (isNaN(+student_age) || validateBlankValue(student_age) || !validateAge(student_age, 15, 40)) {
+        if (isNaN(+student_age)) {
             alert("Age must be number");
         }
 
-        if (!isNaN(+age) && validateBlankValue(age)) {
+        if (!isNaN(+student_age) && validateBlankValue(student_age)) {
             alert("Age cannot be blank!");
         }
 
-        if (!isNaN(+age) && !validateBlankValue(age) && !validateAge(age, 15, 30)) {
+        if (!isNaN(+student_age) && !validateBlankValue(student_age) && !validateAge(student_age, 15, 30)) {
             alert("Age must be between 15 and 40");
         }
 
-        age = prompt("Enter Student Age!");
+        student_age = prompt("Enter Student Age!");
     }
 
     let student_username = prompt("Enter Student UserName!");
@@ -129,7 +129,7 @@ for (let i = 0; i < register_count; i++) {
 
     var student = {
         name: student_name,
-        age: age,
+        age: student_age,
         gender: student_gender,
         username: student_username,
         password: student_password
