@@ -21,7 +21,3 @@ function showMessage(result){
 }
 
 
-placeholder
-require
-step 
-autofocus
