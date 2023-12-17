@@ -127,7 +127,7 @@ for (let i = 0; i < register_count; i++) {
         alert("All students informations are successfully registered!");
     }
 
-    var student = {
+    let student = {
         name: student_name,
         age: student_age,
         gender: student_gender,
