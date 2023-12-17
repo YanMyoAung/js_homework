@@ -135,9 +135,7 @@ for (let i = 0; i < register_count; i++) {
         password: student_password
     };
 
-    let student_info_key_name = generateStudentID(student_info);
-
-    student_info[student_info_key_name] = student;
+    student_info[generateStudentID(student_info)] = student;
 }
 
 console.log(student_info);
