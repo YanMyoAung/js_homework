@@ -6,12 +6,16 @@ function generateStudentID(obj) {
     return "student_" + (Object.keys(obj).length + 1);
 }
 
-function validateWhiteSpace(value) {
-    return (value === null) ? false : (value.indexOf(" ") >= 0);
-}
-
 function validateBlankValue(value) {
     return value === "" || value === null;
+}
+
+function validateRange(value, min, max) {
+    return +value >= min && +value <= max;
+}
+
+function validateWhiteSpace(value) {
+    return (value === null) ? false : (value.indexOf(" ") >= 0);
 }
 
 function validateMaximumLength(value, length) {
@@ -22,11 +26,6 @@ function validateGender(value) {
     return (value === null) ? false : value.toUpperCase() === "MALE" || value.toUpperCase() === "FEMALE";
 }
 
-function validateRange(value, min, max) {
-    return (value === null) ? false : +value >= min && +value <= max;
-}
-
-
 let register_count = prompt("Enter the count of students to register");
 while (isNaN(+register_count) || !validateRange(register_count, 1, 10) || validateBlankValue(register_count)) {
     if (isNaN(+register_count))
@@ -35,7 +34,7 @@ while (isNaN(+register_count) || !validateRange(register_count, 1, 10) || valida
     if (!isNaN(+register_count) && validateBlankValue(register_count))
         alert("Register Count cannot be blank!");
 
-    if (!isNaN(+register_count) && !validateBlankValue(register_count) && !validateRange(register_count,1,10))
+    if (!isNaN(+register_count) && !validateBlankValue(register_count) && !validateRange(register_count, 1, 10))
         alert("Register Count must be between 1 and 10");
 
     register_count = prompt("Enter the count of students to register");
