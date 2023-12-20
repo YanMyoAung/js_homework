@@ -127,20 +127,17 @@ for (let i = 0; i < register_count; i++) {
         || validateBlankValue(student_password)
         || validateMaximumLength(student_password, 20)) {
 
-        if (validateBlankValue(student_password)) {
+        if (validateBlankValue(student_password)) 
             alert("Password cannot be blank!");
-        }
 
         if (!validateBlankValue(student_password)
-            && validateMaximumLength(student_password, 20)) {
+            && validateMaximumLength(student_password, 20)) 
             alert("Password cannot be exceed 20 words");
-        }
 
         if (!validateBlankValue(student_password)
             && !validateMaximumLength(student_password, 20)
-            && validateWhiteSpace(student_password)) {
+            && validateWhiteSpace(student_password)) 
             alert("Password cannot contain whitespaces!");
-        }
 
         student_password = prompt("Enter Student Password!");
     }
