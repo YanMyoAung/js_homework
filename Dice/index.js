@@ -16,12 +16,11 @@ function roll() {
     user_1
   )}`;
 
-  logger(generateGamerID(history), info);
-  document.getElementById("dice").value = "";
   document.getElementById("output").innerHTML =
     "Winner is " + textWinner(winner, user_1);
   document.getElementById("currentGame").innerHTML = " - " + info + "<br/>";
-  console.log(history);
+  logger(history, generateGamerID(history), info);
+  document.getElementById("dice").value = "";
 }
 
 function generateRandom(min, max) {
@@ -29,14 +28,15 @@ function generateRandom(min, max) {
 }
 
 function showHistory() {
+  document.getElementById("history").innerHTML = "";
   for (property in history) {
     document.getElementById("history").innerHTML +=
       "<h3>" + property + "</h3><p>" + history[property] + "</p>";
   }
 }
 
-function logger(key, value) {
-  history[key] = value;
+function logger(obj, key, value) {
+  obj[key] = value;
 }
 
 function generateGamerID(obj) {
