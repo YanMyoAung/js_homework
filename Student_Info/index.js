@@ -10,7 +10,7 @@ function validateBlankValue(value) {
     return value === "" || value === null;
 }
 
-function validateRange(value, min, max) {
+function validateRange(value, min = 1, max = 10) {
     return +value >= min && +value <= max;
 }
 
@@ -127,16 +127,16 @@ for (let i = 0; i < register_count; i++) {
         || validateBlankValue(student_password)
         || validateMaximumLength(student_password, 20)) {
 
-        if (validateBlankValue(student_password)) 
+        if (validateBlankValue(student_password))
             alert("Password cannot be blank!");
 
         if (!validateBlankValue(student_password)
-            && validateMaximumLength(student_password, 20)) 
+            && validateMaximumLength(student_password, 20))
             alert("Password cannot be exceed 20 words");
 
         if (!validateBlankValue(student_password)
             && !validateMaximumLength(student_password, 20)
-            && validateWhiteSpace(student_password)) 
+            && validateWhiteSpace(student_password))
             alert("Password cannot contain whitespaces!");
 
         student_password = prompt("Enter Student Password!");
@@ -145,11 +145,11 @@ for (let i = 0; i < register_count; i++) {
     if (i >= register_count - 1) alert("All students informations are successfully registered!");
 
     let student = {
-        name: student_name,
-        age: student_age,
-        gender: student_gender,
-        username: student_username,
-        password: student_password
+        student_name,
+        student_age,
+        student_gender : student_gender.toUpperCase(),
+        student_username,
+        student_password
     };
 
     student_info[generateStudentID(student_info)] = student;
