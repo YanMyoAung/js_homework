@@ -1,4 +1,4 @@
-const history = {};
+let history = {};
 
 function roll() {
   let user_1 = +document.getElementById("dice").value;
@@ -34,6 +34,11 @@ function showHistory() {
     document.getElementById("history").innerHTML +=
       "<h3>" + property + "</h3><p>" + history[property] + "</p>";
   }
+}
+
+function clearHistory() {
+  history = {};
+  document.getElementById("history").innerHTML = "";
 }
 
 function logger(obj, key, value) {
