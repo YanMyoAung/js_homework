@@ -21,6 +21,7 @@ function roll() {
   document.getElementById("currentGame").innerHTML = " - " + info + "<br/>";
   logger(history, generateGamerID(history), info);
   document.getElementById("dice").value = "";
+  console.log(history);
 }
 
 function generateRandom(min, max) {
@@ -55,4 +56,9 @@ function textWinner(winner, user1) {
     return "User One";
   }
   return "User Two";
+}
+
+let text = "      ";
+if (text.trim() !== '') {
+  
 }
