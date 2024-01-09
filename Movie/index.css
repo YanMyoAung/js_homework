@@ -1,74 +1,86 @@
+@import url("https://fonts.googleapis.com/css2?family=Dosis:wght@500&display=swap");
+
 body {
-    margin: 0px !important;
+  margin: 0px !important;
+  background-color: #020d18;
 }
 
 #root {
-    display: flex;
-    background-color: black;
+  display: flex;
+  background-color: #020d18;
 }
 
 #logo {
-    background-color: black;
+  background-color: #020d18;
 }
 
 h2 {
-    overflow: hidden;
+  overflow: hidden;
 }
 
-#logo>img {
-    width: 200px;
-    height: auto;
-    margin: 30px;
-    margin-left: 60px;
+#logo > img {
+  width: 200px;
+  height: auto;
+  margin: 30px;
+  margin-left: 60px;
 }
 
 #box1 {
-    display: flex;
-    flex: 80%;
-
-    flex-direction: column;
+  display: flex;
+  flex: 80%;
+  flex-direction: column;
 }
 
 #box2 {
-    flex: 20%;
-
-    height: 100vh;
+  flex: 20%;
+  height: 100vh;
 }
 
 #movies_root {
-    display: flex;
-    margin: 50px;
-    flex-direction: row;
-    flex-wrap: wrap;
+  display: flex;
+  margin: 50px;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .movie {
-    flex: 20%;
-    margin: 10px;
-    background-color: rgb(37, 28, 28);
+  flex: 30%;
+  margin: 10px;
+  background-color: #0f2133;
 }
 
-.movie_wrapper{
-    display: flex;
-    margin : 10px;
+.movie_wrapper {
+  display: flex;
+  margin: 10px;
 }
 
-.movie_image{
-    min-width: 50%;
+.movie_image {
+  flex: 40%;
+}
+
+.movie_text {
+  flex: 60%;
+  margin: 10px;
+  margin-top: 0px !important;
 }
 
 .movie_image > img {
-    width: 140px;
-    height: auto;
+  width: 140px;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .movie_text > p {
-    max-height: 200px;
-    overflow-y : hidden;
-    color : white;
+  max-height: 200px;
+  overflow-y: hidden;
+  color: white;
+  text-align: start;
 }
 
-.movie_text > h4{
-    color : white;
+.movie_text > h3 {
+  color: white;
+  font-family: "Dosis", sans-serif;
+  text-transform: uppercase;
 }
-

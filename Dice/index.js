@@ -62,7 +62,3 @@ function textWinner(winner, user1) {
   }
   return "User Two";
 }
-
-let text = "      ";
-if (text.trim() !== "") {
-}
