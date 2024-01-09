@@ -43,27 +43,28 @@ const movies_data = {
   },
   movie_7: {
     id: 7,
-    title: "The Grudge",
+    title: "Gunpowder Milkshake",
     description:
-      "The Grudge is a 2020 American psychological thriller supernatural horror film written and directed by Nicolas Pesce. Originally announced as a reboot of the 2004 American remake and the original 2002 Japanese horror film Ju-On: The Grudge, the film ended up taking place before and during the events of the 2004 film and its two direct sequels, and is the fourth installment in the American The Grudge film series. The film stars Andrea Riseborough, Demián Bichir, John Cho, Betty Gilpin, Lin Shaye, and Jacki Weaver, and follows a police officer who investigates several murders that are seemingly connected to a single house.",
-    url: "https://upload.wikimedia.org/wikipedia/en/3/34/The_Grudge_2020_Poster.jpeg",
+      "Gunpowder Milkshake is a 2021 action thriller film directed by Navot Papushado, with a script co-written by Papushado and Ehud Lavski. The film stars Karen Gillan as a young hitwoman who must team up with her estranged mother and her former colleagues in order to save a young girl from rival assassins led by head of the HR department for The Firm, Nathan.",
+    url: "https://upload.wikimedia.org/wikipedia/en/1/11/Gunpowder_Milkshake_%28poster%29.jpeg",
   },
   movie_8: {
     id: 8,
-    title: "Underwater",
+    title: "Let Us In",
     description:
-      "Underwater is a 2020 American science fiction thriller action horror film directed by William Eubank. The film stars Kristen Stewart, Vincent Cassel, Jessica Henwick, John Gallagher Jr., Mamoudou Athie, and T.J. Miller.",
-    url: "https://upload.wikimedia.org/wikipedia/en/4/4a/Underwater_poster.jpeg",
+      "Let Us In is a 2021 family science fiction-horror film written and directed by Craig Moss. It stars Makenzie Moss, Sadie Stanley, Mackenzie Ziegler, O'Neill Monahan, Siena Agudong, and Tobin Bell. The film is about a twelve-year-old girl who is ostracized in her small town for something she never did. When there's a rash of missing teenagers, she, along with her nine-year-old best friend, step in to figure out what's going on.",
+    url: "https://upload.wikimedia.org/wikipedia/en/e/ec/Let_us_in.jpg",
   },
   movie_9: {
     id: 9,
-    title: "Like a Boss",
+    title: "Black Widow",
     description:
-      "Like a Boss is a 2020 American comedy film directed by Miguel Arteta, written by Sam Pitman and Adam Cole-Kelly, and starring Tiffany Haddish, Rose Byrne, and Salma Hayek. The plot follows two friends who attempt to take back control of their cosmetics company from an industry titan.",
-    url: "https://upload.wikimedia.org/wikipedia/en/9/9a/LikeaBossPoster.jpg",
+      "Black Widow is a 2021 American superhero film based on Marvel Comics featuring the character of the same name. Produced by Marvel Studios and distributed by Walt Disney Studios Motion Pictures, it is the 24th film in the Marvel Cinematic Universe (MCU). The film was directed by Cate Shortland from a screenplay by Eric Pearson, and stars Scarlett Johansson as Natasha Romanoff / Black Widow alongside Florence Pugh, David Harbour, O-T Fagbenle, Olga Kurylenko, William Hurt, Ray Winstone, and Rachel Weisz. Set after the events of Captain America: Civil War (2016), the film sees Romanoff on the run and forced to confront her past as a Russian spy before she became an Avenger.",
+    url: "https://upload.wikimedia.org/wikipedia/en/e/e9/Black_Widow_%282021_film%29_poster.jpg",
   },
 };
 
+let temp = {};
 load_movies(movies_data);
 
 function load_movies(movie_data) {
@@ -74,12 +75,58 @@ function load_movies(movie_data) {
     root.innerHTML += generate_movie_template(
       movie.url,
       movie.title,
-      movie.description
+      movie.description,
+      movie.id
     );
   }
 }
 
-function generate_movie_template(url, title, description) {
+function home() {
+  load_movies(movies_data);
+}
+
+const getMovieById = (id) => {
+  for (const key in movies_data) {
+    if (movies_data[key].id === id) {
+      return movies_data[key];
+    }
+  }
+  return null;
+};
+
+function view_movie_detail(id) {
+  if (getMovieById(id)) {
+    let movie_detail = getMovieById(id);
+    let root = document.getElementById("movies_root");
+    root.innerHTML = "";
+    root.innerHTML = generate_movie_detail_template(
+      movie_detail.url,
+      movie_detail.title,
+      movie_detail.description
+    );
+  }
+}
+
+function generate_movie_detail_template(url, title, description) {
+  return `
+      <div id="movie_detail">
+        
+       <div id="movie_detail_img">
+         <img src=${url} />
+       </div>
+       <div id="movie_detail_text">
+        <h1>${title}</h1></h1>
+        <p>
+          ${description}
+        </p>
+        <button onclick="home()">Back to home</button>
+       </div>
+      
+      </div>
+  `;
+}
+
+function generate_movie_template(url, title, description, id) {
   return `
       <div class="movie">
           <div class="movie_wrapper">
@@ -92,6 +139,7 @@ function generate_movie_template(url, title, description) {
               <p>
                 ${description}
               </p>
+              <button onclick="view_movie_detail(${id})">View Detail</button>
             </div>
           </div>
         </div>
@@ -102,14 +150,16 @@ function add_movie() {
   let movie_title = document.getElementById("movie_name").value;
   let movie_url = document.getElementById("movie_url").value;
   let movie_description = document.getElementById("movie_description").value;
-  let movie_id = Object.keys(movies_data).length + 1;
-  let movie_obj = {
-    id: movie_id,
-    title: movie_title,
-    description: movie_description,
-    url: movie_url,
-  };
-  movies_data["movie_" + (Object.keys(movies_data).length + 1)] = movie_obj;
+  if (movie_title !== "" && movie_url !== "" && movie_description !== "") {
+    let movie_id = Object.keys(movies_data).length + 1;
+    let movie_obj = {
+      id: movie_id,
+      title: movie_title,
+      description: movie_description,
+      url: movie_url,
+    };
+    movies_data["movie_" + (Object.keys(movies_data).length + 1)] = movie_obj;
+  }
   load_movies(movies_data);
 }
 

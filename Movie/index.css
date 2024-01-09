@@ -43,6 +43,19 @@ h2 {
   flex-wrap: wrap;
 }
 
+#movie_detail {
+  display: flex;
+}
+
+#movie_detail_text {
+  margin-left: 100px;
+}
+
+#movie_detail_text > h1,
+p {
+  color: white;
+}
+
 .movie {
   flex: 30%;
   margin: 10px;
