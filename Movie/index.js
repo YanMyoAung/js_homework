@@ -110,7 +110,6 @@ function view_movie_detail(id) {
 function generate_movie_detail_template(url, title, description) {
   return `
       <div id="movie_detail">
-        
        <div id="movie_detail_img">
          <img src=${url} />
        </div>
@@ -121,7 +120,6 @@ function generate_movie_detail_template(url, title, description) {
         </p>
         <button onclick="home()">Back to home</button>
        </div>
-      
       </div>
   `;
 }
