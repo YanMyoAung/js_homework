@@ -18,6 +18,10 @@ h2 {
   overflow: hidden;
 }
 
+#pagination{
+  margin: auto;
+}
+
 #logo > img {
   width: 200px;
   height: auto;

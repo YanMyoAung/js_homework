@@ -62,16 +62,39 @@ const movies_data = {
       "Black Widow is a 2021 American superhero film based on Marvel Comics featuring the character of the same name. Produced by Marvel Studios and distributed by Walt Disney Studios Motion Pictures, it is the 24th film in the Marvel Cinematic Universe (MCU). The film was directed by Cate Shortland from a screenplay by Eric Pearson, and stars Scarlett Johansson as Natasha Romanoff / Black Widow alongside Florence Pugh, David Harbour, O-T Fagbenle, Olga Kurylenko, William Hurt, Ray Winstone, and Rachel Weisz. Set after the events of Captain America: Civil War (2016), the film sees Romanoff on the run and forced to confront her past as a Russian spy before she became an Avenger.",
     url: "https://upload.wikimedia.org/wikipedia/en/e/e9/Black_Widow_%282021_film%29_poster.jpg",
   },
+  movie_10: {
+    id: 10,
+    title: "Like a Boss",
+    description:
+      "Like a Boss is a 2020 American comedy film directed by Miguel Arteta, written by Sam Pitman and Adam Cole-Kelly, and starring Tiffany Haddish, Rose Byrne, and Salma Hayek. The plot follows two friends who attempt to take back control of their cosmetics company from an industry titan.",
+    url: "https://upload.wikimedia.org/wikipedia/en/9/9a/LikeaBossPoster.jpg",
+  },
+  movie_11: {
+    id: 11,
+    title: "The Turning",
+    description:
+      "The Gentlemen is a 2019 action comedy film written, directed and produced by Guy Ritchie, who developed the story along with Ivan Atkinson and Marn Davies. The film stars Matthew McConaughey, Charlie Hunnam, Henry Golding, Michelle Dockery, Jeremy Strong, Eddie Marsan, Colin Farrell, and Hugh Grant. It follows an American cannabis wholesaler in England who is looking to sell his business, setting off a chain of blackmail and schemes to undermine him.",
+    url: "https://upload.wikimedia.org/wikipedia/en/9/9b/The_Assistant_poster.jpeg",
+  },
 };
 
-let temp = {};
-load_movies(movies_data);
+const itemsPerPage = 6; // Set the number of items per page
 
-function load_movies(movie_data) {
+let currentPage = 1; // Initial page number
+
+load_movies(movies_data, currentPage, itemsPerPage);
+
+function load_movies(movie_data, page, itemsPerPage) {
   let root = document.getElementById("movies_root");
   root.innerHTML = "";
-  for (const property in movie_data) {
-    const movie = movie_data[property];
+
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  const moviesArray = Object.values(movie_data);
+  const moviesToDisplay = moviesArray.slice(startIndex, endIndex);
+
+  for (const movie of moviesToDisplay) {
     root.innerHTML += generate_movie_template(
       movie.url,
       movie.title,
@@ -79,10 +102,29 @@ function load_movies(movie_data) {
       movie.id
     );
   }
+
+  // Create pagination buttons
+  createPaginationButtons(moviesArray.length, itemsPerPage);
+}
+
+function createPaginationButtons(totalItems, itemsPerPage) {
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  let paginationContainer = document.getElementById("pagination");
+  paginationContainer.innerHTML = "";
+
+  for (let i = 1; i <= totalPages; i++) {
+    const button = document.createElement("button");
+    button.textContent = i;
+    button.onclick = function () {
+      currentPage = i;
+      load_movies(movies_data, currentPage, itemsPerPage);
+    };
+    paginationContainer.appendChild(button);
+  }
 }
 
 function home() {
-  load_movies(movies_data);
+  load_movies(movies_data, currentPage, itemsPerPage);
 }
 
 const getMovieById = (id) => {
@@ -118,7 +160,7 @@ function generate_movie_detail_template(url, title, description) {
         <p>
           ${description}
         </p>
-        <button onclick="home()">Back to home</button>
+        <button onclick="home()">Go Back</button>
        </div>
       </div>
   `;
@@ -158,7 +200,7 @@ function add_movie() {
     };
     movies_data["movie_" + (Object.keys(movies_data).length + 1)] = movie_obj;
   }
-  load_movies(movies_data);
+  load_movies(movies_data, currentPage, itemsPerPage);
 }
 
 function search_movie() {
@@ -176,5 +218,5 @@ function search_movie() {
       searched_obj[property] = movies_data[property];
     }
   }
-  load_movies(searched_obj);
+  load_movies(searched_obj, currentPage, itemsPerPage);
 }
