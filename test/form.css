@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+      .form_container {
+        margin: 200px 20px 20px 0px;  
+        padding: 30px;
+        background-color: #dd003f;
+        border-radius: 10px;
+        position: relative;
+      }
+
+      .form_container > h1 {
+        color: white;
+        font-family: "Roboto", sans-serif;
+        letter-spacing: 0.8px;
+      }
+
+      .form_container > h1::after {
+        content: "";
+        display: block;
+        width: 10%;
+        padding-top: 3px;
+        border-bottom: 2px solid #f9dd94;
+      }
+
+      input[type="text"],
+      input[type="password"],
+      input[type="email"],
+      select,
+      textarea {
+        width: 100%;
+        display: inline-block;
+        box-sizing: border-box;
+        padding: 15px 20px;
+        outline: none !important;
+        border: none;
+        font-size: 16px;
+        color: rgb(223, 55, 55);
+        border-left: solid 8px rgb(0, 5, 6);
+        margin: 15px 0px;
+      }
+
+      textarea {
+        min-height: 150px;
+        resize: vertical;
+      }
+
+      input[type="text"]:focus {
+        outline: none !important;
+      }
+
+      input[type="submit"],button {
+        outline: none !important;
+        color: white;
+        font-size: 15px;
+        border: none;
+        font-weight: bold;
+        margin: 20px 0px;
+        padding: 13px 20px;
+        min-width: 120px;
+        background-image: linear-gradient(rgb(0, 5, 6), rgb(31, 29, 29));
+        border-radius: 20px;
+      }
+
+      input[type="submit"]:hover {
+        background-image: linear-gradient(#020d18, #0f2132);
+        cursor: pointer;
+      }

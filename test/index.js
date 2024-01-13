@@ -78,146 +78,107 @@ const movies_data = {
   },
 };
 
-const itemsPerPage = 5; // Set the number of items per page
+load_movies(movies_data);
 
-let currentPage = 1; // Initial page number
-
-load_movies(movies_data, currentPage, itemsPerPage);
-
-function load_movies(movie_data, page, itemsPerPage) {
+function load_movies(obj) {
+  document.getElementById("movies_root").innerHTML = "";
   let root = document.getElementById("movies_root");
-  root.innerHTML = "";
-
-  const startIndex = (page - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-
-  const moviesArray = Object.values(movie_data);
-  const moviesToDisplay = moviesArray.slice(startIndex, endIndex);
-
-  for (const movie of moviesToDisplay) {
-    root.innerHTML += generate_movie_template(
-      movie.url,
-      movie.title,
-      movie.description,
-      movie.id
+  for (const property in obj) {
+    root.innerHTML += generate_movies_template(
+      obj[property]?.url,
+      obj[property].title,
+      obj[property].description,
+      obj[property].id
     );
   }
-
-  // Create pagination buttons
-  createPaginationButtons(moviesArray.length, itemsPerPage);
 }
 
-function createPaginationButtons(totalItems, itemsPerPage) {
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
-  let paginationContainer = document.getElementById("pagination");
-  paginationContainer.innerHTML = "";
-
-  for (let i = 1; i <= totalPages; i++) {
-    const button = document.createElement("button");
-    button.textContent = i;
-    button.onclick = function () {
-      currentPage = i;
-      load_movies(movies_data, currentPage, itemsPerPage);
-    };
-    paginationContainer.appendChild(button);
+function search_movie() {
+  let keyword = document.getElementById("search_text").value;
+  const searched_obj = {};
+  for (const movie in movies_data) {
+    if (
+      movies_data[movie].title.toLowerCase().includes(keyword.toLowerCase()) ||
+      movies_data[movie].description
+        .toLowerCase()
+        .includes(keyword.toLowerCase())
+    ) {
+      searched_obj[movie] = movies_data[movie];
+    }
+    load_movies(searched_obj);
   }
 }
 
-function home() {
-  load_movies(movies_data, currentPage, itemsPerPage);
+function movie_detail(id) {
+  let data = get_movie_details_byID(id);
+  document.getElementById("movies_root").innerHTML = "";
+  let root = document.getElementById("movies_root");
+  root.innerHTML = generate_movie_details_template(
+    data.url,
+    data.title,
+    data.description
+  );
 }
 
-const getMovieById = (id) => {
-  for (const key in movies_data) {
-    if (movies_data[key].id === id) {
-      return movies_data[key];
+function get_movie_details_byID(id) {
+  for (let property in movies_data) {
+    if (movies_data[property].id === id) {
+      return movies_data[property];
     }
   }
-  return null;
-};
-
-function view_movie_detail(id) {
-  if (getMovieById(id)) {
-    let movie_detail = getMovieById(id);
-    let root = document.getElementById("movies_root");
-    root.innerHTML = "";
-    root.innerHTML = generate_movie_detail_template(
-      movie_detail.url,
-      movie_detail.title,
-      movie_detail.description
-    );
-  }
 }
 
-function generate_movie_detail_template(url, title, description) {
+function generate_movie_details_template(url, title, description) {
   return `
-      <div id="movie_detail">
+   <div id="movie_detail">
        <div id="movie_detail_img">
          <img src=${url} />
        </div>
        <div id="movie_detail_text">
-        <h1>${title}</h1></h1>
+        <h1>${title}</h1>
         <p>
           ${description}
         </p>
-        <button onclick="home()">Go Back</button>
+        <button onclick="home()" >Go Back</button>
        </div>
       </div>
   `;
 }
 
-function generate_movie_template(url, title, description, id) {
+function home() {
+  load_movies(movies_data);
+}
+function generate_movies_template(url, title, description, id) {
   return `
-      <div class="movie">
+       <div class="movie">
           <div class="movie_wrapper">
             <div class="movie_image">
               <img
-                src=${url} />
+                src= ${url} />
             </div>
             <div class="movie_text">
               <h3>${title}</h3>
               <p>
                 ${description}
               </p>
-              <button onclick="view_movie_detail(${id})">View Detail</button>
+              <button onclick="movie_detail(${id})" >View Detail</button>
             </div>
           </div>
         </div>
-`;
+  `;
 }
 
 function add_movie() {
-  let movie_title = document.getElementById("movie_name").value;
-  let movie_url = document.getElementById("movie_url").value;
-  let movie_description = document.getElementById("movie_description").value;
-  if (movie_title !== "" && movie_url !== "" && movie_description !== "") {
-    let movie_id = Object.keys(movies_data).length + 1;
-    let movie_obj = {
-      id: movie_id,
-      title: movie_title,
-      description: movie_description,
-      url: movie_url,
-    };
-    movies_data["movie_" + (Object.keys(movies_data).length + 1)] = movie_obj;
-  }
-  load_movies(movies_data, currentPage, itemsPerPage);
-}
-
-function search_movie() {
-  let searched_obj = {};
-  let keyword = document.getElementById("search_text").value;
-  for (let property in movies_data) {
-    if (
-      movies_data[property]?.title
-        ?.toLowerCase()
-        .includes(keyword.toLowerCase()) ||
-      movies_data[property]?.description
-        ?.toLowerCase()
-        .includes(keyword.toLowerCase())
-    ) {
-      searched_obj[property] = movies_data[property];
-    }
-  }
-  document.getElementById("search_text").value = "";
-  load_movies(searched_obj, currentPage, itemsPerPage);
+  let title = document.getElementById("movie_name").value;
+  let url = document.getElementById("movie_url").value;
+  let description = document.getElementById("movie_description").value;
+  let id = Object.keys(movies_data).length;
+  let movie_obj = {
+    id,
+    title,
+    description,
+    url,
+  };
+  movies_data["movie_" + (Object.keys(movies_data).length + 1)] = movie_obj;
+  load_movies(movies_data);
 }
