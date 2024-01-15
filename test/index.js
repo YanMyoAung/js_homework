@@ -78,6 +78,8 @@ const movies_data = {
   },
 };
 
+const getByID = (id) => document.getElementById(id);
+
 load_movies(movies_data);
 
 function load_movies(obj) {
@@ -108,24 +110,35 @@ function search_movie() {
     load_movies(searched_obj);
   }
 }
-
-function movie_detail(id) {
-  let data = get_movie_details_byID(id);
-  document.getElementById("movies_root").innerHTML = "";
-  let root = document.getElementById("movies_root");
-  root.innerHTML = generate_movie_details_template(
-    data.url,
-    data.title,
-    data.description
-  );
-}
-
-function get_movie_details_byID(id) {
+function remove_movie(id) {
   for (let property in movies_data) {
     if (movies_data[property].id === id) {
-      return movies_data[property];
+      delete movies_data[property];
     }
   }
+  load_movies(movies_data);
+}
+
+function movie_detail(id) {
+  let data = get_movie_details_byID(id, movies_data);
+  if (data) {
+    document.getElementById("movies_root").innerHTML = "";
+    let root = document.getElementById("movies_root");
+    root.innerHTML = generate_movie_details_template(
+      data.url,
+      data.title,
+      data.description
+    );
+  }
+}
+
+function get_movie_details_byID(id, obj) {
+  for (let property in obj) {
+    if (obj[property].id === id) {
+      return obj[property];
+    }
+  }
+  return null;
 }
 
 function generate_movie_details_template(url, title, description) {
@@ -148,6 +161,7 @@ function generate_movie_details_template(url, title, description) {
 function home() {
   load_movies(movies_data);
 }
+
 function generate_movies_template(url, title, description, id) {
   return `
        <div class="movie">
@@ -161,9 +175,13 @@ function generate_movies_template(url, title, description, id) {
               <p>
                 ${description}
               </p>
-              <button onclick="movie_detail(${id})" >View Detail</button>
+              
             </div>
           </div>
+          <div>
+          <button onclick="movie_detail(${id})" >View Detail</button>
+          <button onclick="remove_movie(${id})" >Remove</button>
+          <button onclick="update_movie_bind(${id})" >Update</button></div>
         </div>
   `;
 }
@@ -172,7 +190,7 @@ function add_movie() {
   let title = document.getElementById("movie_name").value;
   let url = document.getElementById("movie_url").value;
   let description = document.getElementById("movie_description").value;
-  let id = Object.keys(movies_data).length;
+  let id = Object.keys(movies_data).length + 1;
   let movie_obj = {
     id,
     title,
@@ -182,3 +200,59 @@ function add_movie() {
   movies_data["movie_" + (Object.keys(movies_data).length + 1)] = movie_obj;
   load_movies(movies_data);
 }
+
+function update_movie() {
+  let update_movie_id = getByID("update_movie_id").value;
+  let update_movie_name = getByID("update_movie_name").value;
+  let update_movie_url = getByID("update_movie_url").value;
+  let update_movie_description = getByID("update_movie_description").value;
+  if (
+    update_movie_id !== "" &&
+    update_movie_name !== "" &&
+    update_movie_url !== "" &&
+    update_movie_description !== ""
+  ) {
+    for (const property in movies_data) {
+      if (movies_data[property].id === +update_movie_id) {
+        movies_data[property].title = update_movie_name;
+        movies_data[property].url = update_movie_url;
+        movies_data[property].description = update_movie_description;
+      }
+    }
+    load_movies(movies_data);
+  }
+
+  getByID("myModal").style.display = "none";
+  update_movie_id = "";
+  update_movie_name = "";
+  update_movie_url = "";
+  update_movie_description = "";
+}
+
+function update_movie_bind(id) {
+  let update_movie_id = getByID("update_movie_id");
+  let update_movie_name = getByID("update_movie_name");
+  let update_movie_url = getByID("update_movie_url");
+  let update_movie_description = getByID("update_movie_description");
+  let modal = getByID("myModal");
+  let data = get_movie_details_byID(id, movies_data);
+  if (data) {
+    update_movie_id.value = data.id;
+    update_movie_name.value = data.title;
+    update_movie_url.value = data.url;
+    update_movie_description.value = data.description;
+    modal.style.display = "block";
+  }
+}
+
+//span
+document.getElementsByClassName("close")[0].onclick = function () {
+  document.getElementById("myModal").style.display = "none";
+};
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+  if (event.target == document.getElementById("myModal")) {
+    document.getElementById("myModal").style.display = "none";
+  }
+};

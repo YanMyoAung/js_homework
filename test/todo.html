@@ -10,6 +10,27 @@
 </head>
 
 <body>
+
+  <div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close">&times;</span>
+        <h2>Update Movie</h2>
+      </div>
+      <div class="modal-body">
+        <input type="number" hidden id="update_movie_id" />
+        <input type="text" id="update_movie_name" name="name" placeholder="Enter movie name" />
+        <input type="text" id="update_movie_url" name="name" placeholder="Enter image url" />
+        <textarea placeholder="Write down a little bit about movie" id="update_movie_description"></textarea>
+        <button value="Add Movie" id="add_movie" onclick="update_movie()">Update Movie</button>
+      </div>
+      <div class="modal-footer">
+
+      </div>
+    </div>
+  </div>
+
   <div id="root">
     <div id="box1">
       <div id="logo">
@@ -18,9 +39,9 @@
       </div>
 
       <div id="movies_root">
-        <!-- novie loop start -->
-              
-        <!-- novie loop end -->
+        <!-- movie loop start -->
+
+        <!-- movie loop end -->
       </div>
       <div id="pagination"></div>
     </div>
@@ -28,21 +49,21 @@
     <div id="box2">
       <div class="form_container">
 
-          <h1>Add Movie</h1>
-      
-          <input type="text" id="movie_name" name="name" placeholder="Enter movie name" />
-          <input type="text" id="movie_url" name="name" placeholder="Enter image url" />
-          <textarea placeholder="Write down a little bit about movie" id="movie_description"></textarea>
-          <button value="Add Movie" id="add_movie" onclick="add_movie()">Add Movie</button>
+        <h1>Add Movie</h1>
 
-          <input type="text" id="search_text" name="name" placeholder="Search Movie" />
-          <button value="Add Movie" id="search_movie" onclick="search_movie()">Search</button>
-       
+        <input type="text" id="movie_name" name="name" placeholder="Enter movie name" />
+        <input type="text" id="movie_url" name="name" placeholder="Enter image url" />
+        <textarea placeholder="Write down a little bit about movie" id="movie_description"></textarea>
+        <button value="Add Movie" id="add_movie" onclick="add_movie()">Add Movie</button>
+
+        <input type="text" id="search_text" name="name" placeholder="Search Movie" />
+        <button value="Add Movie" id="search_movie" onclick="search_movie()">Search</button>
+
       </div>
     </div>
   </div>
   </div>
-  
+
   <script src="index.js"></script>
 </body>
 
