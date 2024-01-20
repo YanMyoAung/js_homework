@@ -78,7 +78,6 @@ const movies_data = {
   },
 };
 
-
 const getByID = (id) => document.getElementById(id);
 
 load_movies(movies_data);
@@ -94,6 +93,7 @@ function load_movies(obj) {
       obj[property].id
     );
   }
+  console.log(movies_data);
 }
 
 function search_movie() {
@@ -191,14 +191,22 @@ function add_movie() {
   let title = document.getElementById("movie_name").value;
   let url = document.getElementById("movie_url").value;
   let description = document.getElementById("movie_description").value;
-  let id = Object.keys(movies_data).length + 1;
+  let id =
+    +movies_data[Object.keys(movies_data)[Object.keys(movies_data).length - 1]]
+      .id + 1;
   let movie_obj = {
     id,
     title,
     description,
     url,
   };
-  movies_data["movie_" + (Object.keys(movies_data).length + 1)] = movie_obj;
+  movies_data[
+    "movie_" +
+      (+movies_data[
+        Object.keys(movies_data)[Object.keys(movies_data).length - 1]
+      ].id +
+        1)
+  ] = movie_obj;
   load_movies(movies_data);
 }
 
@@ -220,14 +228,14 @@ function update_movie() {
         movies_data[property].description = update_movie_description;
       }
     }
+    update_movie_id = "";
+    update_movie_name = "";
+    update_movie_url = "";
+    update_movie_description = "";
     load_movies(movies_data);
   }
 
-  getByID("myModal").style.display = "none";
-  update_movie_id = "";
-  update_movie_name = "";
-  update_movie_url = "";
-  update_movie_description = "";
+  getByID("myModal").style.display = "block";
 }
 
 function update_movie_bind(id) {
