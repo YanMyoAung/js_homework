@@ -78,6 +78,7 @@ const movies_data = {
   },
 };
 
+
 const getByID = (id) => document.getElementById(id);
 
 load_movies(movies_data);
@@ -119,6 +120,15 @@ function remove_movie(id) {
   load_movies(movies_data);
 }
 
+function get_movie_details_byID(id, obj) {
+  for (let property in obj) {
+    if (obj[property].id === id) {
+      return obj[property];
+    }
+  }
+  return null;
+}
+
 function movie_detail(id) {
   let data = get_movie_details_byID(id, movies_data);
   if (data) {
@@ -130,15 +140,6 @@ function movie_detail(id) {
       data.description
     );
   }
-}
-
-function get_movie_details_byID(id, obj) {
-  for (let property in obj) {
-    if (obj[property].id === id) {
-      return obj[property];
-    }
-  }
-  return null;
 }
 
 function generate_movie_details_template(url, title, description) {

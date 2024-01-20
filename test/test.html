@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    #root{
+        display: block;
+    }
+  </style>
+  <body>
+    <button onclick="show()" id="show">Show</button>
+    <button onclick="hide()" id="hide">Hide</button>
+    <div id="root">
+      <h1>hererer</h1>
+      <h1>hererer</h1>
+      <h1>hererer</h1>
+      <h1>hererer</h1>
+      <h1>hererer</h1>
+    </div>
+
+    <script>
+        let root = document.getElementById('root');
+
+        function hide(){
+            root.style.display = "none";
+        }
+
+        function show(){
+            root.style.display = "block";
+        }
+    </script>
+  </body>
+</html>

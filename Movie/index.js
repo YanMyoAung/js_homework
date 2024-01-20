@@ -78,6 +78,8 @@ const movies_data = {
   },
 };
 
+const g_id = (id) => document.getElementById(id);
+
 const itemsPerPage = 5; // Set the number of items per page
 
 let currentPage = 1; // Initial page number
@@ -105,6 +107,38 @@ function load_movies(movie_data, page, itemsPerPage) {
 
   // Create pagination buttons
   createPaginationButtons(moviesArray.length, itemsPerPage);
+}
+
+function update_movie_bind(id) {
+  let movie_id = g_id("movie_id_update");
+  let title = g_id("movie_name_update");
+  let url = g_id("movie_url_update");
+  let description = g_id("movie_description_update");
+  let movie = getMovieById(id);
+  if (movie) {
+    movie_id.value = movie.id;
+    title.value = movie.title;
+    url.value = movie.url;
+    description.value = movie.description;
+  }
+  document.getElementById("myModal").style.display = "block";
+}
+
+function update_movie() {
+  let movie_id = g_id("movie_id_update").value;
+  let title = g_id("movie_name_update").value;
+  let url = g_id("movie_url_update").value;
+  let description = g_id("movie_description_update").value;
+
+  for (let property in movies_data) {
+    if (movies_data[property].id === +movie_id) {
+      movies_data[property].title = title;
+      movies_data[property].url = url;
+      movies_data[property].description = description;
+    }
+  }
+  load_movies(movies_data, currentPage, itemsPerPage);
+  document.getElementById("myModal").style.display = "none";
 }
 
 function createPaginationButtons(totalItems, itemsPerPage) {
@@ -166,6 +200,16 @@ function generate_movie_detail_template(url, title, description) {
   `;
 }
 
+function delete_movie(id) {
+  for (const property in movies_data) {
+    if (movies_data[property].id === id) {
+      delete movies_data[property];
+    }
+  }
+  console.log(movies_data);
+  load_movies(movies_data, currentPage, itemsPerPage);
+}
+
 function generate_movie_template(url, title, description, id) {
   return `
       <div class="movie">
@@ -179,8 +223,13 @@ function generate_movie_template(url, title, description, id) {
               <p>
                 ${description}
               </p>
-              <button onclick="view_movie_detail(${id})">View Detail</button>
+            
             </div>
+          </div>
+          <div>
+            <button onclick="view_movie_detail(${id})">View Detail</button>
+              <button onclick="delete_movie(${id})">Delete</button>
+              <button onclick="update_movie_bind(${id})">Update</button>
           </div>
         </div>
 `;
@@ -221,3 +270,14 @@ function search_movie() {
   document.getElementById("search_text").value = "";
   load_movies(searched_obj, currentPage, itemsPerPage);
 }
+
+document.getElementsByClassName("close")[0].onclick = function () {
+  document.getElementById("myModal").style.display = "none";
+};
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+  if (event.target == document.getElementById("myModal")) {
+    document.getElementById("myModal").style.display = "none";
+  }
+};
