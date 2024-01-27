@@ -145,7 +145,8 @@ a {
 }
 
 .category_title_wrapper {
-  background-image: url(img/x.jpg);
+  background-image: url(img/5@2x.jpg);
+  object-fit: cover;
 }
 
 .category_title_wrapper_2 {
