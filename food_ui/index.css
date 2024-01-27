@@ -78,6 +78,15 @@ div {
   flex: 25%;
   max-width: 25%;
   position: relative;
+  overflow: hidden;
+}
+
+.image_box img {
+  transition: transform 0.5s ease;
+}
+
+.image_box:hover img {
+  transform: scale(1.2);
 }
 
 .image {
