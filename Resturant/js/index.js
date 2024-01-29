@@ -23,18 +23,6 @@ function loadReciepes(data) {
     }
 }
 
-function getCuisine(data){
-    let cuisine = [];
-    for(const recipe of data.recipes){
-        if(!cuisine.includes(recipe.cuisine)){
-            cuisine.push(recipe.cuisine);
-        }
-    }
-    return cuisine;
-}
-
-
-
 function template_European() {
     return `<div id="european_title_wrapper">
     <h2 id="european_title">MENUS</h2>
