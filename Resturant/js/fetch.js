@@ -1,6 +1,6 @@
 const default_options = { method : "GET" };
 
-export async function getApi(url,options = default_options){
+export async function getData(url,options = default_options) {
     let response = await fetch(url,options);
     if (response.ok) {
         return await response;
@@ -8,3 +8,5 @@ export async function getApi(url,options = default_options){
         return response.status;
     }
 }
+
+
