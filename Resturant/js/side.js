@@ -78,10 +78,8 @@ function handleEvent() {
             foodTypesCheckedValues.some(foodType => index.mealType.includes(foodType))
         );
     }
-
-    const uniqueFinalValues = [...new Set(finalValues)];
-
-    loadReciepes(uniqueFinalValues);
+    
+    loadReciepes(finalValues);
 }
 
 
