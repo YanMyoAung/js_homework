@@ -14,6 +14,7 @@ loadReciepes(data);
 
 function loadReciepes(data) {
     let root = g_id('european');
+    root.innerHTML = "";
     root.innerHTML = template_European();
     if (data) {
         data = data?.recipes;
