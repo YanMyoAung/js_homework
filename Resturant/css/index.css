@@ -175,7 +175,9 @@ a {
   height: 200px;
   background-color: #272727;
 }
-
+#goBackBtn{
+  cursor: pointer;
+}
 .category {
   width: 100%;
 }

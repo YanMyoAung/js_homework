@@ -80,13 +80,15 @@ function template_menu_details(name, url, ingredients, instructions, prepTimeMin
             </div>
 
             <div id="home">
-              <a href="index.html">back to home</a>
+              <a id="goBackBtn">back to home</a>
             </div>
           </div>
         </div>
         </div>
     `;
 }
+
+
 
 // for you may also like section
 /* 
@@ -164,12 +166,13 @@ function template_Menus(id, url,name) {
   </a>
   </div>`;
 }
-
+g_id("goBackBtn").addEventListener('click',() => history.back());
 loadSideMenus();
 
 window.addEventListener('hashchange', function() {
   // Reload data and menus when the URL hash changes
   loadMenuDetails(getMenu(retrieveID()));
   loadSideMenus();
+  g_id("goBackBtn").addEventListener('click',() => history.back());
 });
 
