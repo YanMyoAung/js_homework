@@ -371,6 +371,7 @@ a {
 
 #home>a {
   color: black;
+  margin-right: 20px;
   font-size: 21px !important;
   text-decoration: underline;
 }

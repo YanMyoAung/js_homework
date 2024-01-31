@@ -80,7 +80,8 @@ function template_menu_details(name, url, ingredients, instructions, prepTimeMin
             </div>
 
             <div id="home">
-              <a id="goBackBtn">back to home</a>
+              <a id="goBackBtn">Previous Menu</a>
+              <a href="index.html">Home Page</a>
             </div>
           </div>
         </div>
