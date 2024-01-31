@@ -1,10 +1,10 @@
 async function getData(url) {
-    const response = await fetch(url);
-    if (response.ok) {
-        return await response.json();
-    } else {
-        return null;
-    }
+  const response = await fetch(url);
+  if (response.ok) {
+    return await response.json();
+  } else {
+    return null;
+  }
 }
 
 const g_id = (id) => document.getElementById(id);
@@ -13,44 +13,44 @@ const data = await getData("https://dummyjson.com/recipes?limit=50");
 loadMenuDetails(getMenu(retrieveID()));
 
 function retrieveID() {
-    let url = window.location.href;
-    if (url.includes("#")) {
-        return +url.split("#")[1];   
-    }
-    return null;
+  let url = window.location.href; // getting current url
+  if (url.includes("#")) { // ensuring the url contains #
+    return +url.split("#")[1]; // getting id from url
+  }
+  return null;
 }
 
 function getMenu(id) {
-    let menu = data.recipes.find(item => item.id === +id);
-    return menu ? menu : null;
+  let menu = data.recipes.find(item => item.id === +id);
+  return menu ? menu : null;
 }
 
 function loadMenuDetails(data) {
-    const root = g_id("image_container");
-    if (data) {
-        root.innerHTML = template_menu_details(data.name, data.image, data.ingredients,
-             data.instructions, data.prepTimeMinutes, data.cookTimeMinutes, data.servings,data.tags);
-    }
+  const root = g_id("image_container");
+  if (data) {
+    root.innerHTML = template_menu_details(data.name, data.image, data.ingredients,
+      data.instructions, data.prepTimeMinutes, data.cookTimeMinutes, data.servings, data.tags);
+  }
 }
 
-function template_tags(tags){
-    let data = "";
-    for(const tag of tags){
-        data += `<span>${tag}</span>`;
-    }
-    return data;
+function template_tags(tags) {
+  let data = "";
+  for (const tag of tags) {
+    data += `<span>${tag}</span>`;
+  }
+  return data;
 }
 
-function template_instructions(instructions){
-    let data = "";
-    for(const instruction of instructions){
-        data += `<li>${instruction}</li>`;
-    }
-    return data;
+function template_instructions(instructions) {
+  let data = "";
+  for (const instruction of instructions) {
+    data += `<li>${instruction}</li>`;
+  }
+  return data;
 }
 
-function template_menu_details(name, url, ingredients, instructions, prepTimeMinutes, cookTimeMinutes, servings,tags) {
-    return `
+function template_menu_details(name, url, ingredients, instructions, prepTimeMinutes, cookTimeMinutes, servings, tags) {
+  return `
     <div id="european">
     <div id="food_details_container">
           <div id="food_details_img">
@@ -80,7 +80,7 @@ function template_menu_details(name, url, ingredients, instructions, prepTimeMin
             </div>
 
             <div id="home">
-              <a href="menus.html">back to home</a>
+              <a href="index.html">back to home</a>
             </div>
           </div>
         </div>
@@ -88,8 +88,87 @@ function template_menu_details(name, url, ingredients, instructions, prepTimeMin
     `;
 }
 
+// for you may also like section
+/* 
+for the suggest menus, we'll select 3 menus base on same cuisin name 
+- if the same cuisin name menus are lesser than 3, we will pick the rest from all reciepes 
+by generating random menus
+*/
 
 
+// getting 3 menus base on same cuisine
+function getSameCuisine() {
+  const result = [];
+  const getCuisineGroup = data.recipes.filter(index => index.cuisine === getMenu(retrieveID()).cuisine && index.id !== getMenu(retrieveID()).id);
+  if(getCuisineGroup.length !== 0){
+    for (let cuisineMenus of getCuisineGroup) {
+      if (result.length === 3) break; // we only pick 3 menus and need to stop putting when the slot is full
+      result.push(cuisineMenus);
+    }
+  }
+  return result;
+}
 
+function getSuggestMenus() {
+  let cuisine = getSameCuisine(); // get same cuisine first
+  if (cuisine.length < 3) { // if same cuisine menus lesser than 3 
+    cuisine = generateRandomMenus();
+  }
+  return cuisine;
+}
 
+function generateRandomMenus() {
+  const result = getSameCuisine();
+  const menus = data.recipes.filter(index => index.id !== getMenu(retrieveID()).id && index.cuisine !== getMenu(retrieveID()).cuisine);
+
+  while (result.length < 3 && menus.length > 0) {
+    const randomIndex = generateRandom(0, menus.length - 1);
+    const randomMenu = menus[randomIndex];
+
+    if (!result.some(index => index.id === randomMenu.id)) {
+      result.push(randomMenu);
+    }
+
+    // Remove the selected menu from the array to avoid duplicates
+    menus.splice(randomIndex, 1);
+  }
+
+  return result;
+}
+
+function generateRandom(min, max) {
+  return Math.round(Math.random() * (max - min) + min);
+}
+
+function loadSideMenus(){
+  const sideMenus = getSuggestMenus();
+  g_id("slide_container_detail").innerHTML = "";
+  for(const sideMenu of sideMenus){
+    g_id("slide_container_detail").innerHTML += template_Menus(sideMenu.id,sideMenu.image,sideMenu.name);
+  }
+  
+}
+function template_Menus(id, url,name) {
+  return `<div class="image_box1">
+  <a href="details.html#${id}">
+  <img
+    src="${url}"
+    alt="Avatar"
+    class="image"
+  />
+  <div class="overlay_inner"></div>
+  <div class="overlay">
+      <h2>${name}</h2>  
+  </div>
+  </a>
+  </div>`;
+}
+
+loadSideMenus();
+
+window.addEventListener('hashchange', function() {
+  // Reload data and menus when the URL hash changes
+  loadMenuDetails(getMenu(retrieveID()));
+  loadSideMenus();
+});
 

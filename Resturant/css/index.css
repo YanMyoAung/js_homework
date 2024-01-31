@@ -4,12 +4,13 @@ div {
   margin: 0 !important;
   padding: 0 !important;
 }
+
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Martian+Mono:wght@700;800&family=Oswald:wght@600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Martian+Mono:wght@700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Pattaya&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
 #header {
   background-image: url(../img/cover.jpg);
 }
@@ -44,6 +45,7 @@ div {
   margin: 50px 0px;
   text-transform: uppercase;
 }
+
 #european_title::before {
   content: "";
   display: block;
@@ -53,6 +55,7 @@ div {
   margin: auto;
   margin-bottom: 10px;
 }
+
 #european_title::after {
   content: "";
   display: block;
@@ -72,6 +75,11 @@ div {
 
 #slide_container {
   flex: 20%;
+  box-shadow: rgba(23, 23, 23, 0.4) 0px 0px 45px inset;
+}
+
+#slide_container_detail {
+  flex: 20%;
 }
 
 .image_box {
@@ -86,17 +94,48 @@ div {
 }
 
 .image_box:hover img {
-  transform: scale(1.2);
+  transform: scale(1.3);
+}
+
+.image_box:hover .overlay {
+  opacity: 1 !important;
+}
+
+.image_box:hover .overlay_inner+.overlay {
+  opacity: 1 !important;
+}
+
+
+.image_box1 {
+  flex: 100%;
+  max-width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.image_box1 img {
+  transition: transform 0.5s ease;
+}
+
+.image_box1:hover img {
+  transform: scale(1.3);
+}
+
+.image_box1:hover .overlay {
+  opacity: 1 !important;
+}
+
+.image_box1:hover .overlay_inner+.overlay {
+  opacity: 1 !important;
 }
 
 .image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  transform: scale(1.1)
 }
-.image_box:hover .overlay_inner + .overlay {
-  opacity: 1 !important;
-}
+
 
 .overlay_inner {
   position: absolute;
@@ -105,8 +144,10 @@ div {
   color: #1c1818;
   width: 100%;
   height: 100%;
-  opacity: 0; /* Initial opacity set to 0 */
-  transition: opacity 0.5s ease; /* Added transition for smoother effect */
+  opacity: 0;
+  /* Initial opacity set to 0 */
+  transition: opacity 0.5s ease;
+  /* Added transition for smoother effect */
 }
 
 .overlay {
@@ -115,16 +156,15 @@ div {
   background: rgba(0, 0, 0, 0.5);
   color: white;
   width: 100%;
-  opacity: 0; /* Initial opacity set to 0 */
-  transition: opacity 0.5s ease; /* Added transition for smoother effect */
+  opacity: 0;
+  /* Initial opacity set to 0 */
+  transition: opacity 0.5s ease;
+  /* Added transition for smoother effect */
   font-size: 20px;
   padding: 20px;
   text-align: center;
 }
 
-.image_box:hover .overlay {
-  opacity: 1 !important;
-}
 
 a {
   text-decoration: none;
@@ -136,10 +176,6 @@ a {
   background-color: #272727;
 }
 
-#slide_container {
-  box-shadow: rgba(23, 23, 23, 0.4) 0px 0px 45px inset;
-}
-
 .category {
   width: 100%;
 }
@@ -147,6 +183,20 @@ a {
 .category_title_wrapper {
   background-image: url(../img/5@2x.jpg);
   object-fit: cover;
+}
+
+.category_title_wrapper_1 {
+
+  background-image: url(../img/res.jpg);
+  object-fit: contain;
+
+}
+
+.category_title_wrapper_1 .category_title {
+  text-align: center;
+  font-family: 'Satisfy', cursive !important;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #ff6900;
 }
 
 .category_title_wrapper_2 {
@@ -218,12 +268,12 @@ a {
 }
 
 /* On mouse-over, add a grey background color */
-.checkbox_container:hover input ~ .checkmark {
+.checkbox_container:hover input~.checkmark {
   background-color: #ccc;
 }
 
 /* When the checkbox is checked, add a blue background */
-.checkbox_container input:checked ~ .checkmark {
+.checkbox_container input:checked~.checkmark {
   background-color: #de3163;
   border: none;
 }
@@ -236,7 +286,7 @@ a {
 }
 
 /* Show the checkmark when checked */
-.checkbox_container input:checked ~ .checkmark:after {
+.checkbox_container input:checked~.checkmark:after {
   display: block;
 }
 
@@ -265,7 +315,8 @@ a {
 #food_details_img {
   flex: 35%;
 }
-#food_details_img > img {
+
+#food_details_img>img {
   width: 100%;
   height: auto;
   border: solid 10px rgba(222, 49, 99, 0.7);
@@ -276,7 +327,7 @@ a {
   margin: 0px 0px 20px 70px !important;
 }
 
-#food_details_contents > h1 {
+#food_details_contents>h1 {
   font-family: "Martian Mono", monospace;
   font-family: "Oswald", sans-serif;
   color: #1c1c1c;
@@ -316,7 +367,7 @@ a {
   margin-top: 50px !important;
 }
 
-#home > a {
+#home>a {
   color: black;
   font-size: 21px !important;
   text-decoration: underline;

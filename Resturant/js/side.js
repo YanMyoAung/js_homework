@@ -24,6 +24,7 @@ function getSideData(data, keyword) {
     return result;
 }
 
+// need to be nested looping because mealtype of array 
 function getMealType(data) {
     let result = [];
     for (const prop of data.recipes) {
@@ -36,6 +37,8 @@ function getMealType(data) {
     return result;
 }
 
+
+// use callback functions for the reusability ( getDataFunction)
 function load_side_options(rootID, sideName, template, checkboxName, getDataFunction) {
     let root = g_id(rootID);
     root.innerHTML = "";
@@ -63,16 +66,21 @@ function handleEvent() {
     const difficultyCheckedValues = getCheckedValues(difficulties);
     const foodTypesCheckedValues = getCheckedValues(foodTypes);
     
+    //if user not selecting any checkboxes
     let finalValues = data.recipes;
     
+    //if user select any of cuisine checkboxes
     if (cuisineCheckedValues.length > 0) {
         finalValues = finalValues.filter(index => cuisineCheckedValues.includes(index.cuisine));
     }
 
+    //if user select any of difficulty checkboxes
     if (difficultyCheckedValues.length > 0) {
         finalValues = finalValues.filter(index => difficultyCheckedValues.includes(index.difficulty));
     }
 
+    //if user select any of foodtype checkboxes
+    // need to compare array to array because foodTypes is array and checkboxes are also array
     if (foodTypesCheckedValues.length > 0) {
         finalValues = finalValues.filter(index =>
             foodTypesCheckedValues.some(foodType => index.mealType.includes(foodType))
@@ -82,7 +90,7 @@ function handleEvent() {
     loadReciepes(finalValues);
 }
 
-
+// getting checked values of checkboxes 
 function getCheckedValues(checkboxes) {
     return Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
 }
