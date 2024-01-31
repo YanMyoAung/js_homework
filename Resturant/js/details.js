@@ -95,6 +95,7 @@ for the suggest menus, we'll select 3 menus base on same cuisin name
 by generating random menus
 */
 
+const suggestBoxLength = 3;
 
 // getting 3 menus base on same cuisine
 function getSameCuisine() {
@@ -102,7 +103,7 @@ function getSameCuisine() {
   const getCuisineGroup = data.recipes.filter(index => index.cuisine === getMenu(retrieveID()).cuisine && index.id !== getMenu(retrieveID()).id);
   if(getCuisineGroup.length !== 0){
     for (let cuisineMenus of getCuisineGroup) {
-      if (result.length === 3) break; // we only pick 3 menus and need to stop putting when the slot is full
+      if (result.length === suggestBoxLength) break; // we only pick 3 menus and need to stop putting when the slot is full
       result.push(cuisineMenus);
     }
   }
@@ -111,7 +112,7 @@ function getSameCuisine() {
 
 function getSuggestMenus() {
   let cuisine = getSameCuisine(); // get same cuisine first
-  if (cuisine.length < 3) { // if same cuisine menus lesser than 3 
+  if (cuisine.length < suggestBoxLength) { // if same cuisine menus lesser than 3 
     cuisine = generateRandomMenus();
   }
   return cuisine;
@@ -121,7 +122,7 @@ function generateRandomMenus() {
   const result = getSameCuisine();
   const menus = data.recipes.filter(index => index.id !== getMenu(retrieveID()).id && index.cuisine !== getMenu(retrieveID()).cuisine);
 
-  while (result.length < 3 && menus.length > 0) {
+  while (result.length < suggestBoxLength && menus.length > 0) {
     const randomIndex = generateRandom(0, menus.length - 1);
     const randomMenu = menus[randomIndex];
 
