@@ -158,7 +158,7 @@ function template_Menus(id, url,name) {
   <img
     src="${url}"
     alt="Avatar"
-    class="image"
+    class="image_suggest"
   />
   <div class="overlay_inner"></div>
   <div class="overlay">
