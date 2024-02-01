@@ -394,6 +394,7 @@ a {
   float: left;
   padding: 12px 20px;
   text-decoration: none;
+  cursor: pointer;
 }
 
 #pagination a.active {
@@ -409,6 +410,5 @@ a {
 
 .active {
   background-color: #de3163;
-  color: white;
-  
+  color: white; 
 }

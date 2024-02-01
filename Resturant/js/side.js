@@ -65,7 +65,16 @@ function handleEvent() {
     const cuisineCheckedValues = getCheckedValues(cuisines);
     const difficultyCheckedValues = getCheckedValues(difficulties);
     const foodTypesCheckedValues = getCheckedValues(foodTypes);
+
     
+    console.log(cuisineCheckedValues.length);
+    console.log(difficultyCheckedValues.length);
+    console.log(foodTypesCheckedValues.length);
+    if(cuisineCheckedValues.length > 0 || difficultyCheckedValues.length > 0 || foodTypesCheckedValues.length > 0){
+        document.getElementById('pagination').style.display = "none";
+    }else{
+        document.getElementById('pagination').style.display = "block";
+    }
     //if user not selecting any checkboxes
     let finalValues = data.recipes;
     
