@@ -167,7 +167,9 @@ function template_Menus(id, url,name) {
   </a>
   </div>`;
 }
+
 g_id("goBackBtn").addEventListener('click',() => history.back());
+
 loadSideMenus();
 
 window.addEventListener('hashchange', function() {
