@@ -7,8 +7,7 @@ async function getData(url) {
     }
 }
 let itemsPerPage = (window.innerWidth <= 450 ) ? 8 : 16;
-console.log(window.innerWidth);
-console.log(itemsPerPage);
+
  // Set the number of items per page
 let currentPage = 1;
 const g_id = (id) => document.getElementById(id);
@@ -23,7 +22,6 @@ function loadReciepes(data, page, itemsPerPage) {
     let root = g_id('european');
     root.innerHTML = "";
     root.innerHTML = template_European();
-    console.log(current_data);
     for (const property of current_data) {
         root.innerHTML += template_Menus(property.id, property.image, property.name);
     }
