@@ -26,7 +26,7 @@ div {
   display: flex;
 }
 
-#body_details{
+#body_details {
   display: flex;
 }
 
@@ -439,25 +439,51 @@ a {
   #logo {
     margin-left: 20px !important;
   }
+
   #food_details_img {
     flex: 100%;
   }
+
   #food_details_contents {
     flex: 100%;
     margin: 0px 0px 20px 20px !important;
   }
 
-  #food_details_container{
+  #food_details_container {
     flex: 100% !important;
     flex-wrap: wrap;
-    margin : 20px !important;
+    margin: 20px !important;
   }
 
-  #body_details{
+  #body_details {
     flex-wrap: wrap;
   }
 
-  #pagination_wrapper { 
-    margin : 10px !important;
+  #pagination_wrapper {
+    margin: 10px !important;
+  }
+
+  .checkbox_container {
+    padding-left: 20px;
+    margin-bottom: 12px;
+    font-size: 15px;
+  }
+
+  .checkbox_wrapper {
+    margin: 10px !important;
+  }
+
+  .checkmark {
+    height: 14px;
+    width: 14px;
+  }
+
+  .category_title_2,
+  .category_title {
+    padding: 10px;
+  }
+  
+  #food_details_img>img {
+    width: 90%;
   }
 }
