@@ -6,7 +6,8 @@ async function getData(url) {
         return null;
     }
 }
-const itemsPerPage = 16; // Set the number of items per page
+let itemsPerPage = (window.innerWidth <= 768) ? 8 : 16;
+ // Set the number of items per page
 let currentPage = 1;
 const g_id = (id) => document.getElementById(id);
 const data = await getData("https://dummyjson.com/recipes?limit=50");
