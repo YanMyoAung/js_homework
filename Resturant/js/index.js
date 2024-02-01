@@ -6,7 +6,9 @@ async function getData(url) {
         return null;
     }
 }
-let itemsPerPage = (window.innerWidth <= 768) ? 8 : 16;
+let itemsPerPage = (window.innerWidth <= 450 ) ? 8 : 16;
+console.log(window.innerWidth);
+console.log(itemsPerPage);
  // Set the number of items per page
 let currentPage = 1;
 const g_id = (id) => document.getElementById(id);
